@@ -1,0 +1,27 @@
+.req_container {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 15px;
+}
+.req_container .req_header {
+  text-align: center;
+}
+.ant-form-item-label > label {
+  font-size: 20px !important;
+}
+.ant-select-item-option {
+  padding: 10px 10px !important;
+}
+.ant-select-item-option .ant-select-item-option-content {
+  font-size: 18px;
+}
+.ant-picker-time-panel-column {
+  width: 100px;
+}
+.form_item_cover {
+  padding: 10px 0 !important;
+}
+.select_inp_cover .ant-select-selector .ant-select-selection-placeholder {
+  color: black !important;
+  opacity: 0.5;
+}
