@@ -25,6 +25,7 @@ const PostedJobs = React.lazy(() =>
 const LoginPage = React.lazy(() => import("./pages/Login"));
 const HomePage = React.lazy(() => import("./pages/Home"));
 const Registration = React.lazy(() => import("./pages/Register"));
+const JobPage = React.lazy(() => import("./pages/Jobs"));
 
 export const tutorRoutes = [
   { path: "/", name: "Home", exact: true },
@@ -81,6 +82,12 @@ export const normalRoute = [
     path: "/register",
     name: "Register_page",
     component: Registration,
+    exact: true,
+  },
+  {
+    path: "/jobs",
+    name: "JobsPage",
+    component: JobPage,
     exact: true,
   },
 ];

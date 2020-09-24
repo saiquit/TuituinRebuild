@@ -1,21 +1,33 @@
 import React from "react";
 import { Layout, Menu } from "antd";
 import { normalRoute } from "../../routes";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, NavLink } from "react-router-dom";
+import styled from "styled-components";
 
 const { Header, Content, Footer } = Layout;
 
 function SecondLayout() {
   return (
     <Layout className="layout">
-      <Header>
-        <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-          <Menu.Item key="1">nav 1</Menu.Item>
-          <Menu.Item key="2">nav 2</Menu.Item>
-          <Menu.Item key="3">nav 3</Menu.Item>
+      <HeaderStyle>
+        <div className="logo">
+          <h2>LOGO</h2>
+        </div>
+        <Menu theme="dark" mode="horizontal" defaultActiveFirst>
+          <Menu.Item key="1">
+            <NavLink to="/">Home</NavLink>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <NavLink to="/login">Log in</NavLink>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <NavLink to="/register">Register</NavLink>
+          </Menu.Item>
+          <Menu.Item key="4">
+            <NavLink to="/jobs">Jobs</NavLink>
+          </Menu.Item>
         </Menu>
-      </Header>
+      </HeaderStyle>
       <Content>
         <div className="site-layout-content">
           {normalRoute.map((route, idx) => {
@@ -42,3 +54,9 @@ function SecondLayout() {
 }
 
 export default SecondLayout;
+
+const HeaderStyle = styled(Header)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;

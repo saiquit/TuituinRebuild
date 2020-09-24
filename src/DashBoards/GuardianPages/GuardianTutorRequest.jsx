@@ -67,13 +67,11 @@ function DashBoardRequest({
     ));
   };
 
-  const dateFormat = "MMMM Do YYYY";
-
   const onFinish = async (values) => {
     const token = window.localStorage.getItem("token");
     console.log(values);
-    const date = moment(values.date).format(dateFormat);
-    const time = moment(values.time).toDate();
+    const date = moment(values.date).format("MMMM Do YYYY");
+    const time = moment(values.time).format("hh:mm:ss a");
     try {
       await axios({
         url: "/jobs",
@@ -113,7 +111,7 @@ function DashBoardRequest({
           form={form}
         >
           <Row gutter={[30, 30]}>
-            <Col span={12}>
+            <Col md={12} sm={24} xs={24}>
               <Form.Item
                 className="form_item_cover"
                 name="district"
@@ -123,6 +121,7 @@ function DashBoardRequest({
                 label="District"
               >
                 <Select
+                  showSearch
                   className="select_inp_cover"
                   size="large"
                   placeholder="Select Your District"
@@ -142,6 +141,7 @@ function DashBoardRequest({
                 rules={[{ required: true, message: "Please input your Area!" }]}
               >
                 <Select
+                  showSearch
                   className="select_inp_cover"
                   size="large"
                   placeholder="Select Your Area"
@@ -276,7 +276,7 @@ function DashBoardRequest({
                 <Input.TextArea placeholder="Add Address Description" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col md={12} sm={24} xs={24}>
               <Form.Item
                 className="form_item_cover"
                 name="instituteName"
