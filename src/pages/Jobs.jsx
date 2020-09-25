@@ -1,20 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { jobFetchingAsync } from "../redux/jobReducer/job_actions";
-import SingleJob from "../components/SingleJob";
+import JobList from "../components/JobList";
+import { Layout } from "antd";
+import styled from "styled-components";
 
+const { Sider } = Layout;
 export const Jobs = ({ jobFetchingAsync, jobs }) => {
+  const divRef = useRef(null);
+
   useEffect(() => {
-    jobFetchingAsync();
+    !jobs.length && jobFetchingAsync();
     return () => {};
   }, []);
   return (
-    <div>
-      <div className="job_cover">
-        {jobs.map((job, i) => (
-          <SingleJob job={job} key={i} />
-        ))}
-      </div>
+    <div ref={divRef}>
+      <Layout style={{ minHeight: "100vh" }}>
+        <Sidebar>Sider</Sidebar>
+        <Layout>
+          <JobList jobs={jobs} />
+        </Layout>
+      </Layout>
     </div>
   );
 };
@@ -28,3 +34,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Jobs);
+
+const Sidebar = styled(Sider)`
+  position: -webkit-sticky;
+  position: sticky;
+  top: -1px;
+`;
