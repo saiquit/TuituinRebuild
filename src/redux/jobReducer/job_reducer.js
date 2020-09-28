@@ -17,15 +17,6 @@ export default (state = initialState, { type, payload }) => {
       return { ...state, jobs: payload, jobLoading: false };
     case job_types.JOBS_FETCHING_FAILED:
       return { ...state, error: payload, jobLoading: false };
-    case job_types.JOB_FILTER_SUCCESS:
-      return {
-        ...state,
-        filteredJobs: payload,
-        jobLoading: false,
-        filtered: true,
-      };
-    case job_types.JOB_FILTER_RESET:
-      return { ...state, filteredJobs: [], filtered: false };
     case job_types.JOB_DRAWER_OPEN:
       return { ...state, filterDrawer: payload };
     default:

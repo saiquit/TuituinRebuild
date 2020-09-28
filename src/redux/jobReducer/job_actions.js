@@ -15,7 +15,7 @@ export const jobFetchingError = (payload) => ({
   payload,
 });
 
-export const jobFilteringSuccess = (payload) => ({
+export const jobFetchingAndFilteringSuccess = (payload) => ({
   type: jobTypes.JOB_FILTER_SUCCESS,
   payload,
 });
@@ -40,34 +40,18 @@ export const jobFetchingAsync = () => {
   };
 };
 
-// export const jobFiltering = (
-//   District,
-//   Area,
-//   TutorType,
-//   Medium,
-//   Class,
-//   Subject,
-// ) => {
-//   return (dispatch) => {
-//     dispatch(jobFetchingStart());
-
-//     firestore
-//       .collection("jobs")
-//       .where("District", "==", District)
-//       .where("Area", "==", Area)
-//       .where("TutorType", "==", TutorType)
-//       .where("Medium", "==", Medium)
-//       .where("Class", "==", Class)
-//       .where("Subject", "array-contains-any", Subject)
-//       .get()
-//       .then((docs) => {
-//         const filteredData = [];
-//         docs.forEach((doc) => filteredData.push(doc.data()));
-//         console.log(filteredData);
-//         dispatch(jobFilteringSuccess(filteredData));
-//       })
-//       .catch((err) => {
-//         jobFetchingError(err);
-//       });
-//   };
-// };
+export const jobFetchingAndFiltering = (values) => {
+  // const stringify = JSON.stringify(values);
+  return async (dispatch) => {
+    try {
+      dispatch(jobFetchingStart());
+      const filteredData = await axios.get("/jobs", {
+        params: values,
+        headers: { "Content-Type": "application/json" },
+      });
+      dispatch(jobFetchingSuccess(filteredData.data));
+    } catch (error) {
+      dispatch(jobFetchingError(error));
+    }
+  };
+};
