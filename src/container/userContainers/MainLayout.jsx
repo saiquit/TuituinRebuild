@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Layout, Spin } from "antd";
+import { Layout } from "antd";
 import MainFooter from "./MainFooter";
+import Spinner from "../../components/Spinner/Spinner";
 
 const MainContent = React.lazy(() => import("./MainContent"));
 const MainHeader = React.lazy(() => import("./MainHeader"));
@@ -14,7 +15,7 @@ const MainLayout = ({ user }) => {
   };
 
   return (
-    <React.Suspense fallback={<Spin />}>
+    <React.Suspense fallback={<Spinner />}>
       <Layout style={{ minHeight: "100vh" }}>
         {/* SideBar */}
         <SideBar user={user} collapsed={collapsed} onCollapse={onCollapse} />

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Form, Select, Button, Card } from "antd";
+import { Form, Select, Button, Card, Pagination } from "antd";
 
 import {
   getDistricsAsyc,
@@ -10,7 +10,9 @@ import {
   getSubjectsAsync,
 } from "../redux/classReducer/class_action";
 import { jobFetchingAndFiltering } from "../redux/jobReducer/job_actions";
+
 import { connect } from "react-redux";
+import styled from "styled-components";
 
 const { Option } = Select;
 
@@ -24,30 +26,28 @@ function JobPageSideBar({
   getClassAsync,
   getSubjectsAsync,
   jobFetchingAndFiltering,
+  state,
+  totalJobs,
+  isDash,
+  setVisible,
 }) {
   const [form] = Form.useForm();
   const onFinish = async (values) => {
-    console.log("values", values);
     jobFetchingAndFiltering(values);
+    isDash && setVisible(false);
   };
+
   useEffect(() => {
     getDistricsAsyc();
     return () => form.resetFields;
   }, []);
   return (
-    <Card
-      style={{
-        padding: 30,
-        borderRadius: 10,
-        backgroundColor: "transparent",
-        border: "none",
-      }}
-    >
+    <SidebarCover>
       <Form
         layout="vertical"
         name="tutor_request"
         className="sidebar_filter"
-        // initialValues={{}}
+        initialValues={state}
         onFinish={onFinish}
         form={form}
       >
@@ -58,6 +58,7 @@ function JobPageSideBar({
           label="District"
         >
           <Select
+            showSearch
             className="select_inp_cover"
             size="large"
             placeholder="Select Your District"
@@ -133,9 +134,9 @@ function JobPageSideBar({
             size="large"
             placeholder="Select Class"
             notFoundContent="Select A Medium First"
-            onChange={(value) => {
-              getSubjectsAsync(value);
-            }}
+            // onChange={(value) => {
+            //   getSubjectsAsync(value);
+            // }}
           >
             {classNames?.classes.map((cls, idx) => {
               const noUnder = cls.replace("_", " ");
@@ -148,7 +149,7 @@ function JobPageSideBar({
           </Select>
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           className="form_item_cover"
           name="subjects"
           //   rules={[{ required: true, message: "Please input your Subject!" }]}s
@@ -167,7 +168,7 @@ function JobPageSideBar({
               </Option>
             ))}
           </Select>
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item className="form_item_cover">
           <Button
             type="primary"
@@ -178,7 +179,7 @@ function JobPageSideBar({
           </Button>
         </Form.Item>
       </Form>
-    </Card>
+    </SidebarCover>
   );
 }
 
@@ -202,3 +203,14 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JobPageSideBar);
+
+const SidebarCover = styled(Card)`
+  height: 100vh;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  div {
+    height: 100%;
+    position: relative;
+  }
+`;

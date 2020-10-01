@@ -1,10 +1,11 @@
 import React, { Suspense, useEffect, useState } from "react";
 
-import { Layout, Spin } from "antd";
+import { Layout } from "antd";
 
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import { tutorRoutes, guardianRoutes } from "../../routes";
+import Spinner from "../../components/Spinner/Spinner";
 
 const { Content } = Layout;
 
@@ -28,7 +29,7 @@ function MainContent({ user }) {
   return (
     <Content style={{ margin: "0 16px", background: "none" }}>
       <main className="c-main">
-        <Suspense fallback={<Spin />}>
+        <Suspense fallback={<Spinner />}>
           <Switch>
             {user.role === "tutor"
               ? renderRoute(tutorRoutes)

@@ -27,7 +27,7 @@ import {
   getClassAsync,
   getSubjectsAsync,
 } from "../../redux/classReducer/class_action";
-
+import { addTemporeryJob } from "../../redux/userReducer/user_actions";
 const { Option } = Select;
 
 function DashBoardRequest({
@@ -40,6 +40,7 @@ function DashBoardRequest({
   getSubjectsAsync,
   subjects,
   history,
+  addTemporeryJob,
 }) {
   const [form] = Form.useForm();
 
@@ -88,6 +89,7 @@ function DashBoardRequest({
       });
       form.resetFields();
       history.push("/");
+      addTemporeryJob(values);
     } catch (error) {
       message.error(error);
     }
@@ -415,6 +417,7 @@ const mapDispatchToProps = (dispatch) => ({
   getThanaAsync: (id) => dispatch(getThanaAsync(id)),
   getClassAsync: (medium) => dispatch(getClassAsync(medium)),
   getSubjectsAsync: (className) => dispatch(getSubjectsAsync(className)),
+  addTemporeryJob: (job) => dispatch(addTemporeryJob(job)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashBoardRequest);

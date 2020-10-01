@@ -14,7 +14,12 @@ export default (state = initialState, { type, payload }) => {
     case job_types.JOBS_FETCHING_START:
       return { ...state, jobLoading: true };
     case job_types.JOBS_FETCHING_SUCCESS:
-      return { ...state, jobs: payload, jobLoading: false };
+      return {
+        ...state,
+        jobs: payload.jobs,
+        jobLoading: false,
+        totalJobs: payload.count,
+      };
     case job_types.JOBS_FETCHING_FAILED:
       return { ...state, error: payload, jobLoading: false };
     case job_types.JOB_DRAWER_OPEN:

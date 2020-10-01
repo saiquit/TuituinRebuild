@@ -8,10 +8,10 @@ import {
   FormOutlined,
 } from "@ant-design/icons";
 
-function SingleJob({ isLoading, job, loggedInAs }) {
-  const cardContent = () => {
-    return (
-      <>
+function SingleJob({ job, loggedInAs }) {
+  return (
+    <>
+      <Card style={{ margin: "20px", borderRadius: 25, padding: 25 }}>
         <h2>
           Need a {job.medium} Tutor for {job.className} - For {job.daysPerWeek}
         </h2>
@@ -41,26 +41,11 @@ function SingleJob({ isLoading, job, loggedInAs }) {
               ))}
             </p>
           </Col>
-          <Col span={6} style={{ display: "flex", alignItems: "flex-end" }}>
-            {/* <JobDescription
-              job={job}
-              loading={isLoading}
-              loggedInAs={loggedInAs}
-            /> */}
-          </Col>
+          <Col
+            span={6}
+            style={{ display: "flex", alignItems: "flex-end" }}
+          ></Col>
         </Row>
-      </>
-    );
-  };
-
-  return (
-    <>
-      <Card style={{ margin: "20px", borderRadius: 25, padding: 25 }}>
-        {isLoading ? (
-          <Skeleton loading={isLoading} active paragraph={{ rows: 4 }} />
-        ) : (
-          cardContent()
-        )}
       </Card>
     </>
   );

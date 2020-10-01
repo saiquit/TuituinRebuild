@@ -5,6 +5,7 @@ import { tutorNav, guardianNav } from "../_nav";
 
 import { Layout, Menu, Card, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import styled from "styled-components";
 
 const { Sider } = Layout;
 
@@ -19,24 +20,17 @@ const renderNav = (navName) => {
 function SideBar({ collapsed, onCollapse, user }) {
   return (
     <Sider
-      theme="light"
+      theme="dark"
       collapsible
       collapsed={collapsed}
       onCollapse={onCollapse}
     >
-      <Card
-        style={{
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <AvaterCard>
         <Avatar size="large" icon={<UserOutlined />} />
         {/* <h2>{user.name}</h2> */}
-      </Card>
+      </AvaterCard>
 
-      <Menu theme="light" mode="inline">
+      <Menu theme="dark" mode="inline">
         {user.role === "tutor" ? renderNav(tutorNav) : renderNav(guardianNav)}
       </Menu>
     </Sider>
@@ -44,3 +38,12 @@ function SideBar({ collapsed, onCollapse, user }) {
 }
 
 export default SideBar;
+
+const AvaterCard = styled(Card)`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #001529;
+  border: none;
+`;

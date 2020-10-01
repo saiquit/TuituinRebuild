@@ -25,16 +25,15 @@ export default (state = initialState, { type, payload }) => {
         loading: false,
         error: payload,
       };
-    case user_type.INITIAL_FORM_VAL:
+    case user_type.ADD_POSTED_JOBS:
       return {
         ...state,
-        iniFormVal: payload,
+        user: {
+          ...state.user,
+          postedJobs: [...state.user.postedJobs, payload],
+        },
       };
-    case user_type.SET_USER_TOKEN:
-      return {
-        ...state,
-        token: payload,
-      };
+
     default:
       return state;
   }

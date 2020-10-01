@@ -4,6 +4,6 @@ const user_types = {
   USER_LOGIN_FAILED: "USER_LOGIN_FAILED",
   USER_DATA: "USER_DATA",
   INITIAL_FORM_VAL: "INITIAL_FORM_VAL",
-  SET_USER_TOKEN: "SET_USER_TOKEN",
+  ADD_POSTED_JOBS: "ADD_POSTED_JOBS",
 };
 export default user_types;

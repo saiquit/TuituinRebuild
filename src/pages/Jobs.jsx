@@ -1,18 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
-import { findDOMNode } from "react-dom";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 
 import { connect } from "react-redux";
 import {
-  jobFetchingAsync,
+  // jobFetchingAsync,
   jobFetchingAndFiltering,
 } from "../redux/jobReducer/job_actions";
-import JobList from "../components/JobList";
-import { Layout } from "antd";
+import { Layout, Pagination } from "antd";
 import styled from "styled-components";
-import JobPageSideBar from "../components/JobPageSideBar";
+import Spinner from "../components/Spinner/Spinner";
+
+const JobPageSideBar = React.lazy(() => import("../components/JobPageSideBar"));
+const JobList = React.lazy(() => import("../components/JobList"));
 
 const { Sider } = Layout;
-export const Jobs = ({ jobFetchingAsync, jobs, jobFetchingAndFiltering }) => {
+export const Jobs = ({
+  jobFetchingAsync,
+  jobs,
+  jobLoading,
+  jobFetchingAndFiltering,
+  history,
+  totalJobs,
+}) => {
   const [sticky, setSticky] = useState(false);
   const scrollFunc = () => {
     let pageOffset = window.pageYOffset;
@@ -25,8 +33,8 @@ export const Jobs = ({ jobFetchingAsync, jobs, jobFetchingAndFiltering }) => {
   const layoutRef = useRef(null);
 
   useEffect(() => {
-    // jobFetchingAsync();
-    jobFetchingAndFiltering();
+    jobFetchingAndFiltering(history.location?.state);
+
     window.addEventListener("scroll", scrollFunc);
     return () => {
       window.removeEventListener("scroll", scrollFunc);
@@ -34,33 +42,44 @@ export const Jobs = ({ jobFetchingAsync, jobs, jobFetchingAndFiltering }) => {
   }, []);
 
   return (
-    <div>
-      <Layout ref={layoutRef} style={{ minHeight: "100vh" }}>
-        <Sidebar
-          theme="light"
-          width="450px"
-          sticky={sticky ? 1 : undefined}
-          className="sidebar_cover"
-        >
-          <JobPageSideBar />
-        </Sidebar>
-        <Layout
-          style={sticky ? { marginLeft: "450px" } : { marginLeft: "0px" }}
-        >
-          <JobList jobs={jobs} />
+    <Suspense fallback={<Spinner />}>
+      <div>
+        <Layout ref={layoutRef} style={{ minHeight: "100vh" }}>
+          <Sidebar
+            theme="light"
+            width="450px"
+            sticky={sticky ? 1 : undefined}
+            className="sidebar_cover"
+          >
+            <JobPageSideBar
+              totalJobs={totalJobs}
+              state={history.location?.state}
+            />
+          </Sidebar>
+          <Layout
+            style={sticky ? { marginLeft: "450px" } : { marginLeft: "0px" }}
+          >
+            <JobList
+              jobLoading={jobLoading}
+              totalJobs={totalJobs}
+              jobs={jobs}
+            />
+          </Layout>
         </Layout>
-      </Layout>
-    </div>
+      </div>
+    </Suspense>
   );
 };
 
-const mapStateToProps = ({ jobs: { jobs } }) => ({
+const mapStateToProps = ({ jobs: { jobs, jobLoading, totalJobs } }) => ({
   jobs,
+  jobLoading,
+  totalJobs,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  jobFetchingAsync: () => dispatch(jobFetchingAsync()),
-  jobFetchingAndFiltering: (val) => dispatch(jobFetchingAsync(val)),
+  // jobFetchingAsync: () => dispatch(jobFetchingAsync()),
+  jobFetchingAndFiltering: (value) => dispatch(jobFetchingAndFiltering(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Jobs);

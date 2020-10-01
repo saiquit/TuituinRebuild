@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  AutoComplete,
-  Col,
-  Image,
-  Typography,
-  Input,
-  Tooltip,
-  Row,
-} from "antd";
+import { AutoComplete, Col, Image, Input, Tooltip, Row } from "antd";
 import { AimOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import axios from "axios";
 
-function Home() {
+function Home({ history }) {
   const [options, setOptions] = useState([]);
   const [filtered, setFiltered] = useState([]);
 
@@ -40,7 +32,7 @@ function Home() {
   };
 
   const onSelect = (value) => {
-    console.log("onSelect", value);
+    history.push("/jobs", { area: value });
   };
 
   const handleAreaSearch = async () => {
@@ -58,7 +50,7 @@ function Home() {
         <AutoComplete
           onSelect={onSelect}
           style={{
-            width: "100%",
+            width: "80%",
           }}
           onSearch={handleSearch}
           options={filtered}
@@ -76,17 +68,19 @@ function Home() {
         </AutoComplete>
       </Col>
       <Col md={10} sm={24} xs={24}>
-        <Image width={"100%"} src={`assets/hero.jpg`} />
+        <Image preview={false} width={"100%"} src={`assets/hero.jpg`} />
       </Col>
     </HeroCover>
   );
 }
 
 const HeroCover = styled(Row)`
-  height: 75vh;
+  height: 80vh;
+  width: 80vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
 `;
 const HeroHeading = styled.h1`
   font-size: 60px;

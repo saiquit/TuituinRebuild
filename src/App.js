@@ -2,9 +2,9 @@ import React, { Suspense, useEffect, useState } from "react";
 import "./App.css";
 import "antd/dist/antd.css";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { Spin } from "antd";
 import { fetchUserAsync } from "./redux/userReducer/user_actions";
 import { connect } from "react-redux";
+import Spinner from "./components/Spinner/Spinner";
 
 const MainLayout = React.lazy(() =>
   import("./container/userContainers/MainLayout"),
@@ -19,9 +19,10 @@ function App(props) {
     const token = window.localStorage.getItem("token");
     fetchUserAsync(token);
   }, []);
+  const token = localStorage.getItem("token");
   return (
     <>
-      <Suspense fallback={<Spin />}>
+      <Suspense fallback={<Spinner />}>
         <Switch>
           <Route
             path="/"
@@ -35,6 +36,7 @@ function App(props) {
             }
           />
         </Switch>
+        {!token && <Redirect from={"/dashboard"} to={"/"} />}
       </Suspense>
     </>
   );

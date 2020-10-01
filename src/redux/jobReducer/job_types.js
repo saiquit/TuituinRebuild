@@ -5,5 +5,6 @@ const job_types = {
   JOB_FILTER_SUCCESS: "JOB_FILTER_SUCCESS",
   JOB_FILTER_RESET: "JOB_FILTER_RESET",
   JOB_DRAWER_OPEN: "JOB_DRAWER_OPEN",
+  JOB_COUNT: "JOB_COUNT",
 };
 export default job_types;

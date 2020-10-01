@@ -28,20 +28,7 @@ export const filterDrawerOpen = (payload) => ({
   payload,
 });
 
-export const jobFetchingAsync = () => {
-  return async (dispatch) => {
-    dispatch(jobFetchingStart());
-    try {
-      const jobs = await (await axios.get("/jobs")).data;
-      dispatch(jobFetchingSuccess(jobs));
-    } catch (error) {
-      dispatch(jobFetchingError(error));
-    }
-  };
-};
-
 export const jobFetchingAndFiltering = (values) => {
-  // const stringify = JSON.stringify(values);
   return async (dispatch) => {
     try {
       dispatch(jobFetchingStart());

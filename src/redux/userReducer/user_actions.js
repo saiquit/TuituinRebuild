@@ -14,6 +14,10 @@ const userLogInFailed = (error) => ({
   type: user_types.USER_LOGIN_FAILED,
   payload: error,
 });
+export const addTemporeryJob = (payload) => ({
+  type: user_types.ADD_POSTED_JOBS,
+  payload,
+});
 
 export const fetchUserAsync = (token) => {
   return async (dispatch) => {
@@ -26,7 +30,7 @@ export const fetchUserAsync = (token) => {
       });
       dispatch(userLoginSuccess(userData.data));
     } catch (error) {
-      dispatch(userLogInFailed(error));
+      dispatch(userLogInFailed(error.message));
     }
   };
 };
