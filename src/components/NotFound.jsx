@@ -1,12 +1,16 @@
 import React from "react";
-import { Image, Row } from "antd";
+import { Result, Button, Row } from "antd";
 import styled from "styled-components";
 
 function NotFound() {
   return (
     <Cover>
-      <Image src={"/assets/not_found.png"} width={"60%"} />
-      <h2>No Jobs Found</h2>
+      <Result
+        status="404"
+        title="404"
+        subTitle="Sorry, the page you visited does not exist."
+        extra={<Button type="primary">Back Home</Button>}
+      />
     </Cover>
   );
 }

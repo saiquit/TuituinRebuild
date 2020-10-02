@@ -5,11 +5,12 @@ import { connect } from "react-redux";
 
 import { jobFetchingAndFiltering } from "../redux/jobReducer/job_actions";
 
-const SingleJob = React.lazy(() => import("./SingleJob"));
+// const SingleJob = React.lazy(() => import("./SingleJob"));
+import SingleJob from "./SingleJob";
 const NotFound = React.lazy(() => import("../components/NotFound"));
 
 const JobList = ({ jobLoading, jobs, totalJobs, jobFetchingAndFiltering }) => {
-  const loadingArr = [1, 2, 3, 4, 5, 6, 7, 8];
+  const loadingArr = [1, 2, 3, 4];
   const handlePage = (value) => {
     jobFetchingAndFiltering({ page: value });
   };

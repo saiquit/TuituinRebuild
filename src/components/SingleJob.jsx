@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Skeleton, Row, Col } from "antd";
+import { Card, Row, Col } from "antd";
 
 import {
   HomeOutlined,
@@ -32,13 +32,7 @@ function SingleJob({ job, loggedInAs }) {
           </Col>
           <Col span={6}>
             <p>
-              <FormOutlined /> Subjects :{" "}
-              {job.subjects.map((sub, idx) => (
-                <span key={idx}>
-                  {sub}
-                  {job.subjects.length - 1 === idx ? "." : ","}{" "}
-                </span>
-              ))}
+              <FormOutlined /> Subjects : {job.subjects.toString() + ","}
             </p>
           </Col>
           <Col

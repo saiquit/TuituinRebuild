@@ -1,23 +1,28 @@
-import React from "react";
-import { Form, Input, Button, Space, message } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Space, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
 import { fetchUserAsync } from "../redux/userReducer/user_actions";
+import CustomButton from "../components/CustomButton";
 
 const LoginPage = ({ history, fetchUserAsync }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const onFinish = async (values) => {
     console.log("Received values of form: ", values);
     try {
+      setIsLoading(true);
       const data = await axios.post("/auth", values);
       await fetchUserAsync(data?.data?.token);
       await window.localStorage.setItem("token", data.data.token);
+      setIsLoading(false);
       history.push("/");
     } catch (error) {
       // alert(error);
       message.error(error, 1);
+      setIsLoading(false);
     }
   };
 
@@ -59,17 +64,17 @@ const LoginPage = ({ history, fetchUserAsync }) => {
         </CustomItem>
         <Form.Item>
           <Space size="middle">
-            <Button
-              type="primary"
+            <CustomButton
+              loading={isLoading}
               htmlType="submit"
               className="login-form-button"
             >
               Log in
-            </Button>
+            </CustomButton>
             Or
-            <Button type="default">
+            <CustomButton color="black">
               <Link to="/register">Register</Link>
-            </Button>
+            </CustomButton>
           </Space>
         </Form.Item>
       </Form>
@@ -89,10 +94,13 @@ const Cover = styled.div`
   align-items: center;
   height: 100vh;
   background: url("/assets/bg.jpg");
+  background-size: cover;
 `;
 
 const CustomItem = styled(Form.Item)`
   span {
     border: none;
+    border-radius: 30px;
+    padding: 7px;
   }
 `;
