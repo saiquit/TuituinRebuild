@@ -1,4 +1,5 @@
 import React from "react";
+import TutorEdit from "./DashBoards/TutorPages/TutorEdit";
 
 //Tutor Import
 const TutorDashHome = React.lazy(() =>
@@ -8,6 +9,9 @@ const TutorJobs = React.lazy(() => import("./DashBoards/TutorPages/TutorJobs"));
 
 const TutorProfile = React.lazy(() =>
   import("./DashBoards/TutorPages/TutorProfile"),
+);
+const TutorProfileEdit = React.lazy(() =>
+  import("./DashBoards/TutorPages/TutorEdit"),
 );
 
 // Gurdian Import
@@ -46,6 +50,11 @@ export const tutorRoutes = [
     name: "ProfilePage",
     component: TutorProfile,
     // exact: true,
+  },
+  {
+    path: "/dashboard/edit",
+    name: "EditProfile",
+    component: TutorProfileEdit,
   },
 ];
 export const guardianRoutes = [

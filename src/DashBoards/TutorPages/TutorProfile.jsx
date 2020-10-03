@@ -1,19 +1,22 @@
-import { FacebookFilled, InstagramFilled } from "@ant-design/icons";
-import { Col, Row, Space } from "antd";
+import { EditFilled, FacebookFilled, InstagramFilled } from "@ant-design/icons";
+import { Button, Col, Row, Space } from "antd";
 import Avatar from "antd/lib/avatar/avatar";
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import CardCover from "../../components/CardCover";
+import SingleProfileView from "../../components/SingleProfileView";
 
 function TutorProfile() {
   const { user } = useSelector(({ user }) => user);
+
   return (
     <>
       <Row gutter={[15, 15]}>
         <Col span={18}>
           <CardCover>
-            <h2>Edit</h2>
+            <SingleProfileView name="Availabilty" value={user.availability} />
           </CardCover>
         </Col>
         <Col span={6}>
@@ -25,7 +28,14 @@ function TutorProfile() {
                 src="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/batman_hero_avatar_comics-512.png"
               />
             </ProfileImageCover>
-            <HeadingText>{user.name}</HeadingText>
+            <HeadingText>
+              {user.name}
+              <Link to="/dashboard/edit">
+                <Button style={{ marginLeft: 20 }} icon={<EditFilled />}>
+                  Edit
+                </Button>
+              </Link>
+            </HeadingText>
             <ParagraphText>{user.email}</ParagraphText>
             <Space
               style={{ display: "flex", justifyContent: "center" }}
