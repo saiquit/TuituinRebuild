@@ -8,18 +8,18 @@ function HeaderDropdown({ visible, setVisible }) {
     window.location.reload(false);
   };
   return (
-    <Modal
+    <CustomModal
       onCancel={() => setVisible(false)}
       visible={visible}
       maskStyle={{ background: "transparent" }}
       footer={null}
       width="250px"
-      style={{ position: "absolute", right: "25px" }}
+      style={{ position: "absolute", right: "25px", borderRadius: "15px" }}
     >
       <Lists>
         <li onClick={logOut}>Log Out</li>
       </Lists>
-    </Modal>
+    </CustomModal>
   );
 }
 
@@ -38,5 +38,12 @@ const Lists = styled.ul`
     &:hover {
       color: orangered;
     }
+  }
+`;
+const CustomModal = styled(Modal)`
+  background-color: transparent;
+
+  .ant-modal-body {
+    border-radius: 15px !important;
   }
 `;

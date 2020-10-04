@@ -16,7 +16,13 @@ function TutorProfile() {
       <Row gutter={[15, 15]}>
         <Col span={18}>
           <CardCover>
-            <SingleProfileView name="Availabilty" value={user.availability} />
+            <SingleProfileView
+              name="Tuition Related Information"
+              value={user.availability}
+            />
+          </CardCover>
+          <CardCover>
+            <SingleProfileView name="Personal Info" value={user.personalInfo} />
           </CardCover>
         </Col>
         <Col span={6}>

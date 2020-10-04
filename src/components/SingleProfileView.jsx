@@ -8,9 +8,9 @@ function SingleProfileView({ value, name }) {
   }
   const renderValue = (value) => {
     if (typeof value === "string") {
-      return value + ".";
+      return value.replace("_", " ") + ".";
     } else if (typeof value === "object") {
-      return value.toString() + ".";
+      return value.toString().replace("_", " ") + ".";
     }
   };
   return (
@@ -58,5 +58,5 @@ const SectionName = styled.h2`
 `;
 
 const ParagraphText = styled.p`
-  font-size: 20px;
+  font-size: 16px;
 `;
