@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Form, Select, Button, Card, Pagination } from "antd";
+import { Form, Select, Button, Card } from "antd";
 
 import {
   getDistricsAsyc,
@@ -39,8 +39,13 @@ function JobPageSideBar({
 
   useEffect(() => {
     getDistricsAsyc();
-    return () => form.resetFields;
+    return () => form.resetFields();
   }, []);
+
+  const handleReset = () => {
+    return form.resetFields();
+  };
+
   return (
     <SidebarCover>
       <Form
@@ -178,6 +183,10 @@ function JobPageSideBar({
             Filter
           </Button>
         </Form.Item>
+
+        <Button type="primary" onClick={handleReset}>
+          Reset
+        </Button>
       </Form>
     </SidebarCover>
   );

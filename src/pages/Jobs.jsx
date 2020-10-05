@@ -5,7 +5,7 @@ import {
   // jobFetchingAsync,
   jobFetchingAndFiltering,
 } from "../redux/jobReducer/job_actions";
-import { Layout, Pagination } from "antd";
+import { Layout } from "antd";
 import styled from "styled-components";
 import Spinner from "../components/Spinner/Spinner";
 
@@ -57,7 +57,11 @@ export const Jobs = ({
             />
           </Sidebar>
           <Layout
-            style={sticky ? { marginLeft: "450px" } : { marginLeft: "0px" }}
+            style={
+              sticky
+                ? { marginLeft: "450px", overflow: "hidden" }
+                : { marginLeft: "0px", overflow: "hidden" }
+            }
           >
             <JobList
               jobLoading={jobLoading}

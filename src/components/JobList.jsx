@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from "react";
 import Spinner from "./Spinner/Spinner";
 import { Card, Skeleton, Pagination } from "antd";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 
 import { jobFetchingAndFiltering } from "../redux/jobReducer/job_actions";
 
@@ -18,12 +18,13 @@ const JobList = ({ jobLoading, jobs, totalJobs, jobFetchingAndFiltering }) => {
     jobFetchingAndFiltering();
     return () => {};
   }, []);
+  const user = useSelector(({ user }) => user?.user);
   return (
     <Suspense fallback={<Spinner />}>
       {!jobLoading
         ? jobs.map((job, i) => (
             <React.Fragment key={i}>
-              <SingleJob job={job} />
+              <SingleJob job={job} role={user?.role} />
             </React.Fragment>
           ))
         : loadingArr.map((item) => (
@@ -42,7 +43,7 @@ const JobList = ({ jobLoading, jobs, totalJobs, jobFetchingAndFiltering }) => {
           defaultCurrent={1}
           style={{ textAlign: "center" }}
           total={totalJobs || 10}
-          pageSize={2}
+          pageSize={7}
         />
       )}
     </Suspense>
