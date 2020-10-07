@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Row, Col, Button } from "antd";
+import { Card, Row, Col, Space } from "antd";
 
 import {
   HomeOutlined,
@@ -15,8 +15,11 @@ import styled from "styled-components";
 import CustomButton from "../components/CustomButton";
 import { useState } from "react";
 import ApplyModal from "../components/ApplyModal";
+import { useSelector } from "react-redux";
 
 function JobDetails({ location, history }) {
+  const user = useSelector(({ user }) => user.user);
+
   const [visible, setVisible] = useState(false);
   const {
     medium,
@@ -67,20 +70,6 @@ function JobDetails({ location, history }) {
           <DetailsText>
             <HomeOutlined /> Address: {address}
           </DetailsText>
-        </Col>
-        <Col span={12}>
-          <DetailsText>
-            <DollarCircleOutlined /> Salary : {salary} BDT
-          </DetailsText>
-          <DetailsText>
-            <FieldBinaryOutlined /> Time : {new Date(time).toLocaleTimeString()}
-          </DetailsText>
-          <DetailsText>
-            <DollarCircleOutlined /> Additional Address :{" "}
-            {additionalAddressDescription}
-          </DetailsText>
-        </Col>
-        <Col span={12}>
           <DetailsText>
             <FormOutlined /> Subjects : {subjects.toString() + ","}
           </DetailsText>{" "}
@@ -93,6 +82,16 @@ function JobDetails({ location, history }) {
         </Col>
         <Col span={12}>
           <DetailsText>
+            <DollarCircleOutlined /> Salary : {salary} BDT
+          </DetailsText>
+          <DetailsText>
+            <FieldBinaryOutlined /> Time : {new Date(time).toLocaleTimeString()}
+          </DetailsText>
+          <DetailsText>
+            <DollarCircleOutlined /> Additional Address :{" "}
+            {additionalAddressDescription}
+          </DetailsText>
+          <DetailsText>
             <FontColorsOutlined /> Medium : {medium}
           </DetailsText>
           <DetailsText>
@@ -100,26 +99,46 @@ function JobDetails({ location, history }) {
           </DetailsText>
         </Col>
       </Row>
-      <Card style={{ display: "flex", justifyContent: "center" }}>
-        <CustomButton
-          onClick={() => setVisible(true)}
-          style={{ margin: "0px 15px" }}
-          type="primary"
-        >
-          Apply
-        </CustomButton>
-        <CustomButton
-          style={{ margin: "0px 15px", backgroundColor: "blue" }}
-          onClick={() => history.goBack()}
-        >
-          Go Back
-        </CustomButton>
-      </Card>
-      <ApplyModal
-        job={location?.state}
-        visible={visible}
-        setVisible={setVisible}
-      />
+      {user ? (
+        <>
+          <Card style={{ display: "flex", justifyContent: "center" }}>
+            <CustomButton
+              onClick={() => setVisible(true)}
+              style={{ margin: "0px 15px" }}
+              type="primary"
+            >
+              Apply
+            </CustomButton>
+            <CustomButton
+              style={{ margin: "0px 15px", backgroundColor: "blue" }}
+              onClick={() => history.goBack()}
+            >
+              Go Back
+            </CustomButton>
+          </Card>
+          <ApplyModal
+            job={location?.state}
+            visible={visible}
+            setVisible={setVisible}
+          />
+        </>
+      ) : (
+        <Space style={{ display: "flex", justifyContent: "center" }}>
+          <CustomButton
+            onClick={() => history.push("/login")}
+            style={{ margin: "0px 15px" }}
+            type="primary"
+          >
+            Log in
+          </CustomButton>
+          <CustomButton
+            style={{ margin: "0px 15px", backgroundColor: "blue" }}
+            onClick={() => history.push("/register")}
+          >
+            Register
+          </CustomButton>
+        </Space>
+      )}
     </Card>
   );
 }

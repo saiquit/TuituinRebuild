@@ -9,14 +9,21 @@ import { jobFetchingAndFiltering } from "../redux/jobReducer/job_actions";
 import SingleJob from "./SingleJob";
 const NotFound = React.lazy(() => import("../components/NotFound"));
 
-const JobList = ({ jobLoading, jobs, totalJobs, jobFetchingAndFiltering }) => {
+const JobList = ({
+  jobLoading,
+  jobs,
+  totalJobs,
+  jobFetchingAndFiltering,
+  state,
+}) => {
   const loadingArr = [1, 2, 3, 4];
   const handlePage = (value) => {
     jobFetchingAndFiltering({ page: value });
   };
   useEffect(() => {
-    jobFetchingAndFiltering();
+    jobFetchingAndFiltering(state);
     return () => {};
+    //eslint-disable-next-line
   }, []);
   const user = useSelector(({ user }) => user?.user);
   return (

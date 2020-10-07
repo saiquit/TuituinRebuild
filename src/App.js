@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect } from "react";
 import "./App.css";
 import "antd/dist/antd.css";
 import { Redirect, Route, Switch } from "react-router-dom";
@@ -15,11 +15,11 @@ const NormalLayout = React.lazy(() =>
 
 function App(props) {
   const { fetchUserAsync, user } = props;
+  const token = window.localStorage.getItem("token");
   useEffect(() => {
-    const token = window.localStorage.getItem("token");
     fetchUserAsync(token);
+    //eslint-disable-next-line
   }, []);
-  const token = localStorage.getItem("token");
   return (
     <>
       <Suspense fallback={<Spinner />}>

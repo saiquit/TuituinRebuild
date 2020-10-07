@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Col, Image, Row } from "antd";
 
 import styled from "styled-components";
-import axios from "axios";
 
 function Home({ history }) {
   return (

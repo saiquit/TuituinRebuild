@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, Layout } from "antd";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const { Header } = Layout;
@@ -9,12 +9,11 @@ function NormalHeader() {
   return (
     <HeaderStyle>
       <div className="logo">
-        <h2>LOGO</h2>
+        <h2>
+          <Link to="/">Logo</Link>
+        </h2>
       </div>
       <Menu theme="dark" mode="horizontal" defaultActiveFirst>
-        <Menu.Item key="1">
-          <NavLink to="/">Home</NavLink>
-        </Menu.Item>
         <Menu.Item key="4">
           <NavLink to="/jobs">Jobs</NavLink>
         </Menu.Item>

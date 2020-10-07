@@ -12,7 +12,6 @@ import {
   CoffeeOutlined,
 } from "@ant-design/icons";
 import { Link, withRouter } from "react-router-dom";
-import CardCover from "./CardCover";
 
 function SingleJob({ job, role, history, match }) {
   const {
@@ -41,18 +40,20 @@ function SingleJob({ job, role, history, match }) {
             </h2>
           </Col>
           <Col span={4}>
-            <Link
-              to={{
-                pathname: `${
-                  role === "tutor" ? "/dashboard/details" : "/details"
-                }`,
-                state: job,
-              }}
-            >
-              <Button type="primary" style={{ float: "right" }}>
-                Apply
-              </Button>
-            </Link>
+            {role !== "guardian" && (
+              <Link
+                to={{
+                  pathname: `${
+                    role === "tutor" ? "/dashboard/details" : "/details"
+                  }`,
+                  state: job,
+                }}
+              >
+                <Button type="primary" style={{ float: "right" }}>
+                  Apply
+                </Button>
+              </Link>
+            )}
           </Col>
         </Row>
         <p>Created At: {new Date(createdAt).toDateString()}</p>

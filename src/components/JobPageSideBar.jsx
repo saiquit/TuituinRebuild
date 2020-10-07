@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Form, Select, Button, Card } from "antd";
+import { Form, Select, Button, Card, Row } from "antd";
 
 import {
   getDistricsAsyc,
@@ -40,9 +40,11 @@ function JobPageSideBar({
   useEffect(() => {
     getDistricsAsyc();
     return () => form.resetFields();
+    //eslint-disable-next-line
   }, []);
 
   const handleReset = () => {
+    jobFetchingAndFiltering();
     return form.resetFields();
   };
 
@@ -59,7 +61,7 @@ function JobPageSideBar({
         <Form.Item
           className="form_item_cover"
           name="district"
-          //   rules={[{ required: true, message: "Please input your District!" }]}
+          rules={[{ required: true, message: "Please input your District!" }]}
           label="District"
         >
           <Select
@@ -79,7 +81,7 @@ function JobPageSideBar({
         <Form.Item
           className="form_item_cover"
           name="area"
-          //   rules={[{ required: true, message: "Please input your Area!" }]}
+          rules={[{ required: true, message: "Please input your Area!" }]}
           label="Area"
         >
           <Select
@@ -174,19 +176,21 @@ function JobPageSideBar({
             ))}
           </Select>
         </Form.Item> */}
-        <Form.Item className="form_item_cover">
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="filter-form-button"
-          >
-            Filter
-          </Button>
-        </Form.Item>
+        <Row justify="space-between">
+          <Form.Item className="form_item_cover">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="filter-form-button"
+            >
+              Filter
+            </Button>
+          </Form.Item>
 
-        <Button type="primary" onClick={handleReset}>
-          Reset
-        </Button>
+          <Button type="primary" onClick={handleReset}>
+            Reset
+          </Button>
+        </Row>
       </Form>
     </SidebarCover>
   );

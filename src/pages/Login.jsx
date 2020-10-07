@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Form, Input, Space, message } from "antd";
+import React, { useEffect, useState } from "react";
+import { Form, Input, Space, message, Col, Row } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -18,66 +18,89 @@ const LoginPage = ({ history, fetchUserAsync }) => {
       await fetchUserAsync(data?.data?.token);
       await window.localStorage.setItem("token", data.data.token);
       setIsLoading(false);
+
       history.push("/");
     } catch (error) {
-      // alert(error);
-      message.error(error, 1);
       setIsLoading(false);
+
+      // alert(error);
+      message.error(error.message, 1);
     }
   };
+  useEffect(() => {
+    return () => {
+      setIsLoading(false);
+    };
+  }, []);
 
   return (
     <Cover>
-      <Form
-        name="normal_login"
-        style={{ placeContent: "center" }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
+      <Row
+        style={{
+          width: 1080,
+          padding: "50px 50px",
+          background: "#001529",
+          borderRadius: 10,
+        }}
       >
-        <CustomItem
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Please input your Email!",
-              type: "email",
-            },
-          ]}
-        >
-          <Input
-            style={{ width: 500 }}
-            size="large"
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Email Address"
-          />
-        </CustomItem>
-        <CustomItem
-          name="password"
-          rules={[{ required: true, message: "Please input your Password!" }]}
-        >
-          <Input
-            size="large"
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-          />
-        </CustomItem>
-        <Form.Item>
-          <Space size="middle">
-            <CustomButton
-              loading={isLoading}
-              htmlType="submit"
-              className="login-form-button"
+        <Col span={12}>
+          <h1>Log in </h1>
+        </Col>
+        <Col span={12}>
+          <Form
+            name="normal_login"
+            style={{ placeContent: "center" }}
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+          >
+            <CustomItem
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your Email!",
+                  type: "email",
+                },
+              ]}
             >
-              Log in
-            </CustomButton>
-            Or
-            <CustomButton color="black">
-              <Link to="/register">Register</Link>
-            </CustomButton>
-          </Space>
-        </Form.Item>
-      </Form>
+              <Input
+                size="large"
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                placeholder="Email Address"
+              />
+            </CustomItem>
+            <CustomItem
+              name="password"
+              rules={[
+                { required: true, message: "Please input your Password!" },
+              ]}
+            >
+              <Input
+                size="large"
+                prefix={<LockOutlined className="site-form-item-icon" />}
+                type="password"
+                placeholder="Password"
+              />
+            </CustomItem>
+            <Form.Item>
+              <Space size="middle">
+                <CustomButton
+                  style={{ color: "white" }}
+                  loading={isLoading}
+                  htmlType="submit"
+                  className="login-form-button"
+                >
+                  Log in
+                </CustomButton>
+                Or
+                <CustomButton color="black">
+                  <Link to="/register">Register</Link>
+                </CustomButton>
+              </Space>
+            </Form.Item>
+          </Form>
+        </Col>
+      </Row>
     </Cover>
   );
 };
@@ -93,7 +116,7 @@ const Cover = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url("/assets/bg.jpg");
+  /* background: url("/assets/bg.jpg"); */
   background-size: cover;
 `;
 

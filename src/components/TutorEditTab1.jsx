@@ -11,7 +11,33 @@ import {
   getClassAsync,
   getSubjectsAsync,
 } from "../redux/classReducer/class_action";
-import { useState } from "react";
+
+const allSubjects = [
+  "All",
+  "English",
+  "Bangla",
+  "General Math",
+  "General Science",
+  "Religious Studies",
+  "General Knowledge",
+  "Commercial Geography",
+  "History",
+  "Art and Craft",
+  "Agricultural Education",
+  "ICT",
+  "Bangladesh & Global Studies",
+  "Home Economics",
+  "Social Science",
+  "Biology",
+  "Civics",
+  "Psychology",
+  "Management",
+  "Economics",
+  "Accounting",
+  "Higher Math",
+  "Chemistry",
+  "Physics",
+];
 
 const { Option } = Select;
 function TutorEditTab1({
@@ -25,43 +51,18 @@ function TutorEditTab1({
   subjects,
   history,
   user,
+  _id,
 }) {
   const [form] = Form.useForm();
-  const [iniSubject, setIniSubject] = useState([
-    "All",
-    "English",
-    "Bangla",
-    "General Math",
-    "General Science",
-    "Religious Studies",
-    "General Knowledge",
-    "Commercial Geography",
-    "History",
-    "Art and Craft",
-    "Agricultural Education",
-    "ICT",
-    "Bangladesh & Global Studies",
-    "Home Economics",
-    "Social Science",
-    "Biology",
-    "Civics",
-    "Psychology",
-    "Management",
-    "Economics",
-    "Accounting",
-    "Higher Math",
-    "Chemistry",
-    "Physics",
-  ]);
   useEffect(() => {
     !districts.length && getDistricsAsyc();
+    //eslint-disable-next-line
   }, []);
   const onFinish = async (values) => {
-    console.log(values);
     const token = window.localStorage.getItem("token");
     axios({
-      url: "/users/update",
-      method: "POST",
+      url: `/users/${_id}`,
+      method: "PUT",
       data: {
         availability: {
           ...values,
@@ -165,7 +166,7 @@ function TutorEditTab1({
                 placeholder="Select Subjects"
                 allowClear
               >
-                {iniSubject.map((sub, i) => (
+                {allSubjects.map((sub, i) => (
                   <Option key={i} value={sub}>
                     {sub}
                   </Option>
@@ -232,13 +233,14 @@ function TutorEditTab1({
 const mapStateToProps = ({
   location: { districts, currentThana },
   classArr: { classNames, subjects },
-  user: { user },
+  user: { user, _id },
 }) => ({
   districts,
   currentThana,
   classNames,
   subjects,
   user,
+  _id: user._id,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -2,8 +2,8 @@ import React from "react";
 import { Layout } from "antd";
 import { normalRoute } from "../../routes";
 import { Route, Switch } from "react-router-dom";
-import NormalHeader from "./NormalHeader";
-import NormalFooter from "./NormalFooter";
+const NormalHeader = React.lazy(() => import("./NormalHeader"));
+const NormalFooter = React.lazy(() => import("./NormalFooter"));
 const { Content } = Layout;
 
 function SecondLayout() {

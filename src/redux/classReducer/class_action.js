@@ -9,6 +9,15 @@ export const getSubjects = (payload) => ({
   type: class_types.GET_SUBJECTS,
   payload,
 });
+export const getGroup = (payload) => ({
+  type: class_types.GET_GROUPS,
+  payload,
+});
+
+export const getInstituteName = (payload) => ({
+  type: class_types.GET_INSTITUTE_NAME,
+  payload,
+});
 
 export const getClassAsync = (medium) => {
   return async (dispatch) => {
@@ -23,5 +32,27 @@ export const getSubjectsAsync = (className) => {
     const subjects = subjectData.data;
     const singleSub = subjects.subs[0].split(",");
     dispatch(getSubjects(singleSub));
+  };
+};
+
+export const getGroupsAsync = () => {
+  return async (dispatch) => {
+    try {
+      const groups = await (await axios("/statics/group")).data;
+      dispatch(getGroup(groups));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getInstituteNameAsync = () => {
+  return async (dispatch) => {
+    try {
+      const institute = await (await axios("/statics/institute")).data;
+      dispatch(getInstituteName(institute));
+    } catch (error) {
+      console.log(error);
+    }
   };
 };

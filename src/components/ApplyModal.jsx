@@ -15,7 +15,7 @@ function ApplyModal({ visible, setVisible, job }) {
         return message.error("Empty");
       }
 
-      const data = await axios.post(
+      await axios.post(
         "/jobs/apply",
         {
           jobId: job._id,

@@ -33,7 +33,14 @@ export default (state = initialState, { type, payload }) => {
           postedJobs: [...state.user.postedJobs, payload],
         },
       };
-
+    case user_type.UPDATE_EDUCATION:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          educationInfo: [...payload],
+        },
+      };
     default:
       return state;
   }

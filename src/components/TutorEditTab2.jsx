@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Form, Row, Col, Select, Button, Input, Radio, DatePicker } from "antd";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -7,13 +7,13 @@ import moment from "moment";
 const { Option } = Select;
 function TutorEditTab2() {
   const [form] = Form.useForm();
-  const { personalInfo } = useSelector(({ user }) => user.user);
+  const { personalInfo, _id } = useSelector(({ user }) => user.user);
 
   const onFinish = async (values) => {
     const token = window.localStorage.getItem("token");
     axios({
-      url: "/users/update",
-      method: "POST",
+      url: `/users/${_id}`,
+      method: "PUT",
       data: {
         personalInfo: {
           ...values,

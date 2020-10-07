@@ -4,6 +4,7 @@ import CardCover from "../../components/CardCover";
 
 import TutorEditTab1 from "../../components/TutorEditTab1";
 import TutorEditTab2 from "../../components/TutorEditTab2";
+import TutorEditTab3 from "../../components/TutorEditTab3";
 
 const { TabPane } = Tabs;
 function TutorEdit() {
@@ -20,7 +21,7 @@ function TutorEdit() {
           <TutorEditTab2 />
         </TabPane>
         <TabPane tab="Education Info" key="3">
-          Content of Tab Pane 3
+          <TutorEditTab3 />
         </TabPane>
       </Tabs>
     </CardCover>

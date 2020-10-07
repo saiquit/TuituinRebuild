@@ -13,6 +13,7 @@ const JobPageSideBar = React.lazy(() => import("../components/JobPageSideBar"));
 const JobList = React.lazy(() => import("../components/JobList"));
 
 const { Sider } = Layout;
+
 export const Jobs = ({
   jobFetchingAsync,
   jobs,
@@ -33,7 +34,7 @@ export const Jobs = ({
   const layoutRef = useRef(null);
 
   useEffect(() => {
-    jobFetchingAndFiltering(history.location?.state);
+    // jobFetchingAndFiltering(history.location?.state);
 
     window.addEventListener("scroll", scrollFunc);
     return () => {
@@ -82,7 +83,6 @@ const mapStateToProps = ({ jobs: { jobs, jobLoading, totalJobs } }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // jobFetchingAsync: () => dispatch(jobFetchingAsync()),
   jobFetchingAndFiltering: (value) => dispatch(jobFetchingAndFiltering(value)),
 });
 
@@ -90,7 +90,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Jobs);
 
 const Sidebar = styled(Sider)`
   position: ${(props) => (props.sticky ? "fixed" : "block")};
-  /* width: 250px !important; */
   z-index: 100;
   height: 100vh;
   top: 0;

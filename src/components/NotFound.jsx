@@ -5,15 +5,15 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-function NotFound() {
+function NotFound({ title, subTitle, status }) {
   const user = useSelector(({ user }) => user.user);
 
   return (
     <Cover>
       <Result
-        status="404"
-        title="404"
-        subTitle="Sorry, the page you visited does not exist."
+        status={status || `404`}
+        title={title || "404"}
+        subTitle={subTitle || `Sorry, the page you visited does not exist.`}
         extra={
           <Link to={user ? "/dashboard" : "/"}>
             <Button type="primary">Back {user ? "DashBoard" : "Home"}</Button>

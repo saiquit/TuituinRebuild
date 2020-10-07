@@ -27,7 +27,7 @@ import {
   getClassAsync,
   getSubjectsAsync,
 } from "../../redux/classReducer/class_action";
-import { addTemporeryJob } from "../../redux/userReducer/user_actions";
+import { addTemporaryJob } from "../../redux/userReducer/user_actions";
 const { Option } = Select;
 
 function DashBoardRequest({
@@ -40,11 +40,11 @@ function DashBoardRequest({
   getSubjectsAsync,
   subjects,
   history,
-  addTemporeryJob,
+  addTemporaryJob,
 }) {
   const [form] = Form.useForm();
 
-  const handeleStudentNum = () => {
+  const handleStudentNumber = () => {
     let noOfStudents = [];
     for (let index = 1; index <= 10; index++) {
       noOfStudents.push(index);
@@ -73,29 +73,31 @@ function DashBoardRequest({
     // console.log(values);
     const date = moment(values.date).format("MMMM Do YYYY");
     const time = moment(values.time).format("hh:mm:ss a");
+    const data = {
+      ...values,
+      district: values.district[0],
+      dateToStart: date,
+      time: time,
+    };
     try {
       await axios({
         url: "/jobs",
         method: "POST",
-        data: {
-          ...values,
-          district: values.district[0],
-          dateToStart: date,
-          time: time,
-        },
+        data: data,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       form.resetFields();
+      addTemporaryJob(data);
       history.push("/");
-      addTemporeryJob(values);
     } catch (error) {
       message.error(error);
     }
   };
   useEffect(() => {
     !districts.length && getDistricsAsyc();
+    // eslint-disable-next-line
   }, []);
   return (
     <>
@@ -308,7 +310,7 @@ function DashBoardRequest({
                   size="large"
                   placeholder="No of Students"
                 >
-                  {handeleStudentNum()}
+                  {handleStudentNumber()}
                 </Select>
               </Form.Item>
               <Form.Item
@@ -417,7 +419,7 @@ const mapDispatchToProps = (dispatch) => ({
   getThanaAsync: (id) => dispatch(getThanaAsync(id)),
   getClassAsync: (medium) => dispatch(getClassAsync(medium)),
   getSubjectsAsync: (className) => dispatch(getSubjectsAsync(className)),
-  addTemporeryJob: (job) => dispatch(addTemporeryJob(job)),
+  addTemporaryJob: (job) => dispatch(addTemporaryJob(job)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashBoardRequest);

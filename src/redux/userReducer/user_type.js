@@ -5,5 +5,6 @@ const user_types = {
   USER_DATA: "USER_DATA",
   INITIAL_FORM_VAL: "INITIAL_FORM_VAL",
   ADD_POSTED_JOBS: "ADD_POSTED_JOBS",
+  UPDATE_EDUCATION: "UPDATE_EDUCATION",
 };
 export default user_types;

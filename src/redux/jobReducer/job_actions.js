@@ -33,7 +33,7 @@ export const jobFetchingAndFiltering = (values) => {
     try {
       dispatch(jobFetchingStart());
       const filteredData = await axios.get("/jobs", {
-        params: values,
+        params: { ...values },
         headers: { "Content-Type": "application/json" },
       });
       dispatch(jobFetchingSuccess(filteredData.data));
